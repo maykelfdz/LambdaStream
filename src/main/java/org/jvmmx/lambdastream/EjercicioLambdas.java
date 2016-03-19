@@ -1,5 +1,6 @@
 package org.jvmmx.lambdastream;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,8 +14,9 @@ public class EjercicioLambdas {
         List<String> list = Arrays.asList(
                 "Abraham", "Carlos", "Daniel","Esteban","Francisco","Gustavo","Hugo","Ignacio"
         );
-        
-        //Código aquí
+        StringBuffer cadena = new StringBuffer();
+        list.forEach(s -> cadena.append(s.charAt(0)));
+        System.out.println(cadena.toString());
         
     }
     
@@ -22,11 +24,11 @@ public class EjercicioLambdas {
      * Imprimir sólo las palabras de longitud par
      */
     private void ejercicio2() {
-        List<String> list = Arrays.asList(
+        List<String> list = new ArrayList<>(Arrays.asList(
                 "Abraham", "Carlos", "Daniel","Esteban","Francisco","Gustavo","Hugo","Ignacio"
-        );
-        
-        //Código aquí
+        ));
+        list.removeIf(s -> (s.length()%2)!=0);
+        System.out.println("->"+list);
         
     }
     
@@ -38,7 +40,7 @@ public class EjercicioLambdas {
                 "Abraham", "Carlos", "Daniel","Esteban","Francisco","Gustavo","Hugo","Ignacio"
         );
         
-        //Código aquí
+        list.forEach(s->System.out.println(s.toUpperCase()));
         
     }
     
@@ -48,7 +50,7 @@ public class EjercicioLambdas {
     private void ejercicio4() {
         List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         
-        //Código aquí
+        (new Thread(()->list.forEach(System.out::println))).start();
         
     }
     

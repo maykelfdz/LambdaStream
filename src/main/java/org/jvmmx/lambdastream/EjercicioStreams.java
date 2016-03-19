@@ -6,6 +6,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class EjercicioStreams {
     
@@ -18,7 +22,7 @@ public class EjercicioStreams {
         try (BufferedReader reader = Files.newBufferedReader(
                 Paths.get("poema.txt"), StandardCharsets.UTF_8)){
             
-            // código aquí
+            System.out.println("lineas: "+reader.lines().count());
             
         }
     }
@@ -31,7 +35,14 @@ public class EjercicioStreams {
         try (BufferedReader reader = Files.newBufferedReader(
                 Paths.get("poema.txt"), StandardCharsets.UTF_8)){
             
-            // código aquí
+            List<String> lista =
+                    reader.lines()
+                            .flatMap(s -> Stream.of(s.split(PALABRA)))
+                            .filter(s->s.trim().length()>0)
+                            .distinct()
+                            .collect(Collectors.toList());
+            
+            System.out.println("lista: "+lista);
             
         }
     }
@@ -44,8 +55,16 @@ public class EjercicioStreams {
         try (BufferedReader reader = Files.newBufferedReader(
                 Paths.get("poema.txt"), StandardCharsets.UTF_8)){
             
-            // código aquí
+            List<String> lista = 
+                    reader.lines()
+                        .flatMap(s -> Stream.of(s.split(PALABRA)))
+                        .filter(s->s.trim().length()>0)
+                        .map(String::toLowerCase)
+                        .distinct()
+                        .sorted()
+                        .collect(Collectors.toList());
             
+            System.out.println("lista: "+lista);
         }
     }
     
@@ -56,7 +75,16 @@ public class EjercicioStreams {
         try (BufferedReader reader = Files.newBufferedReader(
                 Paths.get("poema.txt"), StandardCharsets.UTF_8)){
             
-            // código aquí
+            List<String> lista = 
+                    reader.lines()
+                        .flatMap(s -> Stream.of(s.split(PALABRA)))
+                        .filter(s->s.trim().length()>0)
+                        .map(String::toLowerCase)
+                        .distinct()
+                        .sorted((s1, s2) -> s1.length()-s2.length())
+                        .collect(Collectors.toList());
+            
+            System.out.println("lista: "+lista);
             
         }
     }
@@ -68,8 +96,15 @@ public class EjercicioStreams {
         try (BufferedReader reader = Files.newBufferedReader(
                 Paths.get("poema.txt"), StandardCharsets.UTF_8)){
             
-            // código aquí
-            
+                Map<String, Integer> histograma = 
+                    reader.lines()
+                        .flatMap(s -> Stream.of(s.split(PALABRA)))
+                        .filter(s->s.trim().length()>0)
+                        .map(String::toLowerCase)
+                        .collect(
+                   Collectors.toMap(Function.identity(),s->1,(a,b)->a+b));
+         
+                System.out.println("histograma: "+ histograma);
         }
     }
     
@@ -81,8 +116,10 @@ public class EjercicioStreams {
         RandomWords rand = new RandomWords();
         List<String> list = rand.createList(1000);
         
-        //código aquí
+        Map<Integer, List<String>> mapa = list.stream()
+                .collect(Collectors.groupingBy(s -> s.length()));
         
+        System.out.println("palabras: "+ mapa);
     }
     
     
