@@ -15,7 +15,7 @@ public class EjercicioLambdas {
         );
         
         //Código aquí
-        
+        list.forEach(x -> System.out.println(x.charAt(0)));
     }
     
     /**
@@ -28,6 +28,9 @@ public class EjercicioLambdas {
         
         //Código aquí
         
+        list.stream().filter(x -> (x.length() % 2 ==0 )).forEach(System.out::println);
+//        list.forEach(x -> System.out.println(x.length()/2));
+        
     }
     
     /**
@@ -39,7 +42,7 @@ public class EjercicioLambdas {
         );
         
         //Código aquí
-        
+        list.forEach(x -> System.out.println(x.toUpperCase()));
     }
     
     /**
@@ -50,19 +53,22 @@ public class EjercicioLambdas {
         
         //Código aquí
         
+        (new Thread(() -> list.forEach(System.out::print))).start();
+        
     }
     
     public static void main(String[] args) {
         EjercicioLambdas el = new EjercicioLambdas();
         System.out.println("Lambdas y Stream API EjercicioLambdas");
-        System.out.println("Ejercicio 1");
-        el.ejercicio1();
-        System.out.println("Ejercicio 2");
-        el.ejercicio2();
-        System.out.println("Ejercicio 3");
-        el.ejercicio3();
+//        System.out.println("Ejercicio 1");
+//        el.ejercicio1();
+//        System.out.println("Ejercicio 2");
+//        el.ejercicio2();
+//        System.out.println("Ejercicio 3");
+//        el.ejercicio3();
         System.out.println("Ejercicio 4");
         el.ejercicio4();
+        System.out.println("Fin main");
         
     }
 
